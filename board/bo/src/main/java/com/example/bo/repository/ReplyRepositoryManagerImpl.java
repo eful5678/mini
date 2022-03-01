@@ -26,7 +26,7 @@ public class ReplyRepositoryManagerImpl implements ReplyRepositoryManager {
         entityManager.persist(replys);
         
 
-        return new ReplyDto.create(reply.getContent());
+        return new ReplyDto.create(reply.getContent(), reply.getBoard().getId());
     }
 
     @Override
@@ -36,7 +36,14 @@ public class ReplyRepositoryManagerImpl implements ReplyRepositoryManager {
         entityManager.persist(reply);
         
 
-        return new ReplyDto.create(reply.getContent());
+        return new ReplyDto.create(reply.getContent(), reply.getBoard().getId());
+    }
+
+    @Override
+    public ReplyDto.deleteReply deleteReply(Reply reply) {
+        reply.destroy(reply);
+
+        return null;
     }
     
 }

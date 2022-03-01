@@ -26,24 +26,32 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reply extends BaseEntity implements BaseFunction<Reply> {
-
+    // PK
     @Id
     @GeneratedValue
     @Column(name = "replyId")
     private Long id;
 
+    // 댓글 내용
     private String content;
 
+    // 댓글 작성자
+    private String writer;
+
+    // 게시글 테이블
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardId")
     private Board board;
 
+    // 부모 키
     @Column
     private Long parentId;
 
+    // 댓글 계층
     @Column
     private Long depth;
 
+    // 셀프조인
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mainReplyId")
     private Reply mainReply;
@@ -70,6 +78,7 @@ public class Reply extends BaseEntity implements BaseFunction<Reply> {
         this.board = board;
         this.depth = depth;
         this.mainReply = reply;
+        this.writer = createParam.getReplyWriter();
 
     }
 
@@ -78,6 +87,7 @@ public class Reply extends BaseEntity implements BaseFunction<Reply> {
         this.parentId = createParam.getReplyId();
         this.board = board;
         this.depth = depth;
+        this.writer = createParam.getReplyWriter();
 
     }
 
@@ -102,8 +112,9 @@ public class Reply extends BaseEntity implements BaseFunction<Reply> {
     }
 
     @Override
-    public Reply destroy(Reply e) {
-        // TODO Auto-generated method stub
+    public Reply destroy(Reply reply) {
+        reply.delYn = 'Y';
+        reply.useYn = 'N';
         return null;
     }
 

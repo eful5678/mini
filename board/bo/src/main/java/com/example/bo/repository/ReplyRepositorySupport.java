@@ -14,4 +14,18 @@ public interface ReplyRepositorySupport {
 
     Reply findByParentId(Long id);
 
+    Long depthMax();
+
+    /**
+     * 삭제 대상 댓글 조회
+     */
+    List<ReplyDto.deletedReply> findByReplyIdForDelete(Long replyId);
+
+    /**
+     * 게시글 키 조회
+     */
+    Long findBoardIdbyReplyId(Long replyId);
+
+    List<Reply> findDeletedReplyByReplyId(Long replyId);
+
 }

@@ -28,13 +28,22 @@ public class BoardRepositorySupportImpl extends QuerydslRepositorySupport implem
     public List<BoardDto.BoardList> boardList() {
 
         QBoard board = QBoard.board;
+
+        final BooleanExpression isUseYn = board.useYn.eq('Y');
+        final BooleanExpression isDelYn = board.delYn.eq('N');
+
         List<BoardDto.BoardList> boardList = jpaQueryFactory.select(Projections.constructor(BoardDto.BoardList.class
                                                                     , board.writer
                                                                     , board.title
                                                                     , board.content
                                                                     , board.id
+                                                                    , board.createDateTime
+                                                                    , board.likeCount
                                                             ))
                                                             .from(board)
+                                                            .where(isUseYn
+                                                                .and(isDelYn))
+                                                            .orderBy(board.createDateTime.desc())
                                                             .fetch();
 
         return boardList;
@@ -60,7 +69,6 @@ public class BoardRepositorySupportImpl extends QuerydslRepositorySupport implem
 
     @Override
     public Board findByBoardId(Long boardId) {
-        // TODO Auto-generated method stub
 
         QBoard board = QBoard.board;
 

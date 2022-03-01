@@ -7,14 +7,13 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
-    # open-in-view: false
-    # generate-ddl: true
     hibernate:
 #      ddl-auto: create
       ddl-auto: update
     #      ddl-auto: none
     properties:
       hibernate:
+        show_sql: true
         format_sql: true
         # show_sql: true
         # order_inserts: true

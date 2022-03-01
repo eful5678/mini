@@ -15,6 +15,9 @@ public class BoardRestController {
 
     final BoardService boardService;
 
+    /**
+     * 작성된 글 목록 전체조회
+     */
     @GetMapping("/list")
     public List<BoardDto.BoardList> boardList(){
         return boardService.boardList();
@@ -25,8 +28,29 @@ public class BoardRestController {
         return boardService.boardInfo(id);
     }
 
+    /**
+     * 글 작성
+     * @param param
+     * @return
+     */
     @PostMapping("/create")
     public BoardDto.BoardCreate boardCreate(@RequestBody BoardDto.BoardCreateParam param){
         return boardService.boardCreate(param);
+    }
+
+    /**
+     * 글 삭제
+     */
+    @PostMapping("/deleteBoard")
+    public BoardDto.BoardDelete boardDelete(@RequestBody BoardDto.BoardDeleteParam boardDeleteParam){
+        return boardService.boardDelete(boardDeleteParam);
+    }
+
+    /**
+     * 게시글 좋아요기능
+     */
+    @PostMapping("/likeBoard")
+    public BoardDto.BoardLike likeBoard(@RequestBody BoardDto.BoardLikeParam boardLikeParam){
+        return boardService.boardLike(boardLikeParam);
     }
 }

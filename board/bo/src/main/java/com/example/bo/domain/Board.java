@@ -8,8 +8,11 @@ import javax.persistence.OneToMany;
 
 import com.example.bo.model.BoardDto;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import lombok.Getter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +27,20 @@ public class Board extends BaseEntity implements BaseFunction<Board>{
     @Column(name = "boardId")
     private Long id;
 
+    // 작성자
     private String writer;
 
+    // 제목
     private String title;
 
+    // 글 내용
     private String content;
 
+    // 좋아요 카운팅
+    @ColumnDefault("0")
+    private BigDecimal likeCount;
+
+    // 댓글 테이블
     @OneToMany(mappedBy = "board")
     private List<Reply> reply = new ArrayList<>();
 
@@ -45,6 +56,7 @@ public class Board extends BaseEntity implements BaseFunction<Board>{
                  , String writer
                  , String title
                  , String content
+                 , Long like
     ){
         super(createUserId, createDateTime, useYn, delYn);
         this.id = id;
@@ -53,7 +65,7 @@ public class Board extends BaseEntity implements BaseFunction<Board>{
         this.content = content;
 
     }
-
+    // 글 저장
     public static Supplier<Board> create(BoardDto.BoardCreateParam createParam){
         return () -> new Board(createParam);
     }
@@ -63,33 +75,36 @@ public class Board extends BaseEntity implements BaseFunction<Board>{
         this.content = createParam.getContent();
     }
 
+
+    public BigDecimal boardLike(Board b){
+        b.likeCount = b.likeCount.add(BigDecimal.ONE);
+        return b.likeCount;
+    }
+
     @Override
     public Supplier<Board> identity() {
-        // TODO Auto-generated method stub
         return () -> new Board();
     }
 
     @Override
     public Board clone(Board e) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Board destroy(Board e) {
-        // TODO Auto-generated method stub
+        e.delYn = 'Y';
+        e.useYn = 'N';
         return null;
     }
 
     @Override
     public boolean validate(Board e) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public void doSynchronizerRelationData() {
-        // TODO Auto-generated method stub
         
     }
 

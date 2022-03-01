@@ -1,0 +1,27 @@
+.reply {
+    font-size: 15px;
+    .form{
+        display: flex;
+        input {
+            background-color: rgb(181, 233, 181);
+            border: none;
+        }
+        button{
+            background-color: rgb(121, 226, 121);
+            border: none;
+            cursor: pointer;
+        }
+    }
+    .list{
+        justify-content: space-between;
+        padding: 3px;
+        button {
+            background-color: rgb(121, 226, 121);
+            border: none;
+            cursor: pointer;
+        }
+        .writer{
+            width: 70px;
+        }
+    }
+}

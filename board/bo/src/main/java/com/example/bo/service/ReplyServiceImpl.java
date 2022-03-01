@@ -7,6 +7,7 @@ import com.example.bo.domain.Reply;
 import com.example.bo.model.ReplyDto;
 import com.example.bo.model.ReplyDto.create;
 import com.example.bo.model.ReplyDto.createParam;
+import com.example.bo.model.ReplyDto.deleteReplyParam;
 import com.example.bo.model.ReplyDto.listParam;
 import com.example.bo.repository.BoardRepositorySupport;
 import com.example.bo.repository.ReplyRepositoryManager;
@@ -29,9 +30,17 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public create replyCreate(createParam createParam) {
-        // TODO Auto-generated method stub
+        Long boardId = 0L;
+        // 부모의 replyID를 통해 boardId를 가져오자
+        if(createParam.getBoardId() == null){
+            boardId = replyRepositorySupport.findBoardIdbyReplyId(createParam.getReplyId());
+        }else{
+            boardId = createParam.getBoardId();
+        }
 
-        final Long boardId = createParam.getBoardId();
+
+        // final Long boardId = createParam.getBoardId();
+        createParam.setBoardId(boardId);
 
         final Board board = boardRepositorySupport.findByBoardId(boardId);
         Long depth = 0L;
@@ -47,20 +56,44 @@ public class ReplyServiceImpl implements ReplyService {
 
 
 
-        // if(createParam.getReplyId() == null){
-        //     return replyRepositoryManager.replyCreate(createParam, board, depth);
-        // }else{
-        
-        //     return replyRepositoryManager.replyCreate(createParam, board, depth, mainReply);
-        // }
-
         
     }
 
     @Override
     public List<ReplyDto.list> list(listParam listParam) {
-        // TODO Auto-generated method stub
-        return replyRepositorySupport.list(listParam);
+
+        if(listParam.getBoardId() == null){
+            Long boardId = replyRepositorySupport.findBoardIdbyReplyId(listParam.getReplyId());
+            listParam.setBoardId(boardId);
+        }
+
+        List<ReplyDto.list> list = replyRepositorySupport.list(listParam);
+
+        Long depthMax = replyRepositorySupport.depthMax();
+
+        list.get(0).setDepthMax(depthMax);
+
+        return list;
+    }
+
+    @Override
+    public ReplyDto.deleteReply deleteReply(deleteReplyParam deleteReplyParam) {
+
+        // List<ReplyDto.deletedReply> deleteReplyList = replyRepositorySupport.findByReplyIdForDelete(deleteReplyParam.getReplyId());
+        
+        // Reply reply = null;
+
+        List<Reply> deletedReplyList = replyRepositorySupport.findDeletedReplyByReplyId(deleteReplyParam.getReplyId());
+
+        // 해당 댓글의 id값으로 해당 댓글의 자식 댓글들을 일괄적으로 지운다
+
+        for (Reply deletedReply : deletedReplyList) {
+
+            replyRepositoryManager.deleteReply(deletedReply);
+            
+        }
+
+        return null;
     }
     
 }
