@@ -3,7 +3,6 @@ package com.example.bo.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Optional;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -75,8 +74,14 @@ public class BoardDto {
       // 제목
       private String title;
 
-      public BoardCreate(String title){        
+      // 작성자
+      private String writer;
+
+      public BoardCreate(String title
+                        , String writer
+      ){        
         this.title = title;
+        this.writer = writer;
       }
 
     }
@@ -88,7 +93,32 @@ public class BoardDto {
       private String title;
       //내용
       private String content;
+      // 작성자
+      private String username;
 
+    }
+
+    @Getter
+    @Setter
+    public static class BoardUpdate{
+      
+      private String content;
+
+      public BoardUpdate(String content){
+        this.content = content;
+      }
+
+    }
+
+    @Getter
+    @Setter
+    public static class BoardUpdateParam{
+      // 수정할 게시글 ID값
+      private Long boardId;
+
+      // 게시글 내용
+      private String content;
+      
     }
 
     @Getter

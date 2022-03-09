@@ -18,6 +18,11 @@ const routes = [
     path: '/singup',
     name: 'SingUpForm',
     component: () => import('@/components/member/SignUpForm.vue')
+  },
+  {
+    path: '/memberList',
+    name: 'MemberList',
+    component: () => import('@/components/member/MemberList.vue')
   }
 ];
 

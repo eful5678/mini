@@ -24,7 +24,7 @@
           <span> {{ board.like }} </span>
         </div>
         <div>
-          <span style="cursor: pointer" @click="updateBoard"
+          <span style="cursor: pointer" @click="updateBoardDialog(board.id)"
             ><img
               src="@/assets/icon/button/write.png"
               style="width: 20px; height: 20px"
@@ -57,6 +57,12 @@ import Reply from "@/components/reply/Reply.vue";
 import { Board } from "@/resources/entity";
 export default {
   name: "BoardList",
+  props: {
+    boards: {
+      type: Array,
+      required: true,
+    },
+  },
   components: {
     Reply,
   },
@@ -64,39 +70,22 @@ export default {
     board: {
       class: new Board(),
     },
-    boards: [],
     openReplyId: 0,
   }),
-  mounted() {
-    this.search();
-  },
-  updated() {
-    console.log("updated");
-  },
   methods: {
-    refresh: function () {
-      this.search();
-    },
     search: function () {
-      axios
-        .get("http://localhost:8090/board/list")
-        .then((result) => {
-          console.log(result);
-          this.boards = result.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {});
+      this.$emit("refresh");
     },
-    updateBoard: function () {
-      alert("기능 구현중");
+    updateBoardDialog: function (boardId) {
+      console.log("update");
+      // this.flag.boardUpdateFlag = true;
+      this.$emit("updateDialogOpen", boardId);
     },
+    
     deleteBoard: function (boardId) {
       console.log(boardId);
       let deleteCheck = confirm("게시글을 삭제하시겠습니까?");
       if (deleteCheck) {
-        alert("삭제");
         this.board.class.id = boardId;
         axios
           .post(
@@ -105,7 +94,7 @@ export default {
           )
           .then((result) => {
             console.log(result);
-            this.search();
+            this.$emit("refresh");
           })
           .catch((err) => {
             console.log(err);

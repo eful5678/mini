@@ -44,6 +44,11 @@ public class Board extends BaseEntity implements BaseFunction<Board>{
     @OneToMany(mappedBy = "board")
     private List<Reply> reply = new ArrayList<>();
 
+    // 댓글 존재 여부 확인
+    @Column
+    @ColumnDefault("'N'")
+    private Character replyExistYn; 
+
     public Board(){
 
     }
@@ -65,15 +70,26 @@ public class Board extends BaseEntity implements BaseFunction<Board>{
         this.content = content;
 
     }
+    // 글 작성시 실행
+    public Board(BoardDto.BoardCreateParam createParam){
+        this.title = createParam.getTitle();
+        this.content = createParam.getContent();
+        this.likeCount = BigDecimal.ZERO;
+        this.replyExistYn = 'N';
+        this.writer = createParam.getUsername();
+    }
     // 글 저장
     public static Supplier<Board> create(BoardDto.BoardCreateParam createParam){
         return () -> new Board(createParam);
     }
 
-    public Board(BoardDto.BoardCreateParam createParam){
-        this.title = createParam.getTitle();
-        this.content = createParam.getContent();
+    // 글 수정
+    public static BoardDto.BoardUpdate update(BoardDto.BoardUpdateParam updateParam, Board b){
+        b.content = updateParam.getContent();
+        return new BoardDto.BoardUpdate(b.content);
     }
+
+
 
 
     public BigDecimal boardLike(Board b){

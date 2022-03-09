@@ -15,15 +15,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.example.bo.model.ReplyDto;
-import com.example.bo.model.ReplyDto.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
-@AllArgsConstructor
+@Getter@AllArgsConstructor
 @NoArgsConstructor
 public class Reply extends BaseEntity implements BaseFunction<Reply> {
     // PK

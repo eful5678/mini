@@ -5,7 +5,7 @@
         style="width: 20%"
         type="text"
         v-model="reply.class.replyWriter"
-        placeholder="작성자"
+        value="username"
       />&nbsp;
       <input
         style="width: 70%"
@@ -30,8 +30,11 @@
               {{ common.longToDate(reply.createDateTime) }}
             </div>
           </div>
-          <div>
+          <div v-if="!replyUpdateFlag">
             {{ reply.content }}
+          </div>
+          <div v-else-if="replyUpdateFlag === true">
+            <input type="text" v-model="reply.class.content">
           </div>
           <div>
             <button @click="openInput(reply.replyId)">
@@ -41,6 +44,13 @@
                 alt=""
               /></button
             >&nbsp;&nbsp;
+            <button @click="openUpdate(reply.replyId)">
+              <img
+                src="@/assets/icon/button/write.png"
+                style="width: 20px; height: 20px"
+                alt=""
+              />
+            </button>&nbsp;&nbsp;
             <button @click="deleteReply(reply.replyId)">
               <img
                 src="@/assets/icon/button/delete.png"
@@ -98,6 +108,8 @@ export default {
     replyWriter: "",
     // boardParamId: this.boardId,
     flagId: 0,
+    replyUpdateFlag: false,
+    username: ''
   }),
   beforeCreate() {
     console.log(this, "beforeCreate");
@@ -105,10 +117,13 @@ export default {
   created() {
     console.log(this, "created");
     // this.reply.class.boardId = Number(this.boardParam.id);
-    this.$store.commit("refreshReply", {
-      boardId: this.boardId,
-    });
+    // this.$store.commit("refreshReply", {
+    //   boardId: this.boardId,
+    // });
     this.replys = this.$store.state.replys;
+    this.username = this.$store.state.username;
+    this.replyWriter = this.$store.state.username;
+    this.reply.class.replyWriter = this.$store.state.username;
   },
   mounted() {
     console.log(this, "mounted");

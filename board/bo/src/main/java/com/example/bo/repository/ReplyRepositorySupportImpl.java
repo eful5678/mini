@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import com.example.bo.domain.Board;
-import com.example.bo.domain.QBoard;
 import com.example.bo.domain.QReply;
 import com.example.bo.domain.Reply;
 import com.example.bo.model.ReplyDto;
@@ -14,7 +12,6 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import org.hibernate.query.criteria.internal.expression.function.AggregationFunction.MAX;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -28,7 +25,6 @@ public class ReplyRepositorySupportImpl extends QuerydslRepositorySupport implem
         super(Reply.class);
         super.setEntityManager(entityManager);
         jpaQueryFactory = new JPAQueryFactory(entityManager);
-        //TODO Auto-generated constructor stub
     }
 
 
@@ -72,7 +68,6 @@ public class ReplyRepositorySupportImpl extends QuerydslRepositorySupport implem
 
     @Override
     public Reply findByReplyId(Long id) {
-        // TODO Auto-generated method stub
         QReply reply = QReply.reply;
         final BooleanExpression isReplyId = reply.id.eq(id);
         return jpaQueryFactory.select(reply)
@@ -84,7 +79,6 @@ public class ReplyRepositorySupportImpl extends QuerydslRepositorySupport implem
 
     @Override
     public Reply findByParentId(Long id) {
-        // TODO Auto-generated method stub
 
         QReply reply = QReply.reply;
 

@@ -22,9 +22,17 @@ public interface BoardService {
     BoardDto.BoardInfo boardInfo(Long id);
 
     /**
+     * 
+     * @param updateParam
+     * @return
+     */
+    BoardDto.BoardUpdate boardUpdate(BoardDto.BoardUpdateParam updateParam);
+
+    /**
      * 글 삭제
      */
     BoardDto.BoardDelete boardDelete(BoardDto.BoardDeleteParam param);
+    
 
     /**
      * 좋아요

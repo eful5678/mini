@@ -39,6 +39,15 @@ public class BoardRestController {
     }
 
     /**
+     * 게시글 업데이트 기능
+     * 현재 글 내용만 수정 가능
+     */
+    @PostMapping("/updateBoard")
+    public BoardDto.BoardUpdate boardUpdate(@RequestBody BoardDto.BoardUpdateParam updateParam){
+        return boardService.boardUpdate(updateParam);
+    }
+
+    /**
      * 글 삭제
      */
     @PostMapping("/deleteBoard")

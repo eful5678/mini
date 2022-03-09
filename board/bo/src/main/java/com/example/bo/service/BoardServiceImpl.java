@@ -6,8 +6,12 @@ import com.example.bo.model.BoardDto.BoardDelete;
 import com.example.bo.model.BoardDto.BoardDeleteParam;
 import com.example.bo.model.BoardDto.BoardInfo;
 import com.example.bo.model.BoardDto.BoardLike;
+import com.example.bo.model.BoardDto.BoardUpdate;
+import com.example.bo.model.BoardDto.BoardUpdateParam;
 import com.example.bo.repository.BoardRepositoryManager;
 import com.example.bo.repository.BoardRepositorySupport;
+import com.example.bo.repository.MemberRepositorySupport;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,8 @@ public class BoardServiceImpl implements BoardService{
 
     final BoardRepositoryManager boardRepositoryManager;
 
+    final MemberRepositorySupport memberRepositorySupport;
+
     @Override
     public List<BoardDto.BoardList> boardList() {
         return boardRepositorySupport.boardList();
@@ -30,6 +36,8 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardDto.BoardCreate boardCreate(BoardDto.BoardCreateParam param) {
+        String name = memberRepositorySupport.findNameByUsername(param.getUsername());
+        param.setUsername(name);
         return boardRepositoryManager.boardCreate(param);
     }
 
@@ -48,5 +56,13 @@ public class BoardServiceImpl implements BoardService{
     public BoardLike boardLike(BoardDto.BoardLikeParam boardLikeParam) {
         Board board = boardRepositorySupport.findByBoardId(boardLikeParam.getBoardId());
         return boardRepositoryManager.boardLike(board);
+    }
+
+    @Override
+    public BoardUpdate boardUpdate(BoardUpdateParam updateParam) {
+
+        // Board board = boardRepositorySupport.findByBoardId(updateParam.getBoardId());
+
+        return boardRepositoryManager.boardUpdate(updateParam);
     }
 }

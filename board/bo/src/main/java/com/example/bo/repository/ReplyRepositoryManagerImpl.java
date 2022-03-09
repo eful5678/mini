@@ -20,7 +20,6 @@ public class ReplyRepositoryManagerImpl implements ReplyRepositoryManager {
 
     @Override
     public ReplyDto.create replyCreate(createParam createParam, Board board, Long depth, Reply reply) {
-        // TODO Auto-generated method stub
 
         final Reply replys = Reply.create(createParam, board, depth, reply).get();
         entityManager.persist(replys);
@@ -31,7 +30,6 @@ public class ReplyRepositoryManagerImpl implements ReplyRepositoryManager {
 
     @Override
     public create replyFirstCreate(createParam createParam, Board board, Long depth) {
-        // TODO Auto-generated method stub
         final Reply reply = Reply.createFirst(createParam, board, depth).get();
         entityManager.persist(reply);
         

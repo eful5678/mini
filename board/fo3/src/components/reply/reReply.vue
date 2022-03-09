@@ -7,7 +7,10 @@
       :key="index"
     >
       <div class="reply list">
-        <div class="reply list" style="display: flex; align-items: center; border-top: 1px solid">
+        <div
+          class="reply list"
+          style="display: flex; align-items: center; border-top: 1px solid"
+        >
           <div class="reply list writer">
             {{ reReply.depth }}
             <div style="font-weight: 800">{{ reReply.replyWriter }}<br /></div>
@@ -57,6 +60,7 @@
           ref="reReply"
           v-if="reReply.replys.length > 0"
           :replys="reReply.replys"
+          @refresh="refresh"
         ></reReply>
       </div>
     </div>
@@ -92,6 +96,7 @@ export default {
     console.log(this.replys);
     console.log(this.boardId);
     // this.reply.class.boardId = Number(this.boardParam.id);
+    this.replyWriter = this.$store.state.username;
   },
   mounted() {
     console.log(typeof this.boardId);
@@ -102,6 +107,9 @@ export default {
   //   this.searchReply();
   // },
   methods: {
+    refresh: function () {
+      this.$emit("refresh");
+    },
     search: function () {
       axios
         .get("http://localhost:8090/board/list")
@@ -134,10 +142,6 @@ export default {
     createRe: function (id) {
       this.flagId = id;
     },
-    // createSubReply: function (id) {
-    //   console.log("emit");
-    //   this.$emit("createSubReply", id);
-    // },
     createSubReply: function (replyId) {
       console.log("글 작성");
       console.log(replyId);
@@ -152,11 +156,8 @@ export default {
           console.log(result);
           console.log(this);
           // this.searchReply();
-          // this.$emit("refresh");
+          this.$emit("refresh");
           // this.$refs.reReply.searchReply();
-          this.$store.commit("refreshReply", {
-            boardId: result.data.boardId
-          });
         })
         .catch((err) => {
           console.log(err);

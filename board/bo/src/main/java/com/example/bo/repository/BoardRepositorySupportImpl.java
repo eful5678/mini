@@ -51,7 +51,6 @@ public class BoardRepositorySupportImpl extends QuerydslRepositorySupport implem
 
     @Override
     public BoardInfo boardInfo(Long id) {
-        // TODO Auto-generated method stub
 
         QBoard board = QBoard.board;
 

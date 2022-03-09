@@ -16,13 +16,18 @@ export default {
   }),
   methods: {
     createBoard: function () {
+      if (this.$store.state.username === "") {
+        return alert("로그인 필요");
+      }
       if (this.board.class.content === "") {
         return alert("글을 입력해주세요");
       }
+      this.board.class.username = this.$store.state.username;
       axios
         .post("http://localhost:8090/board/create", this.board.class.create())
         .then((result) => {
           console.log(result);
+          this.board.class.content = "";
           this.$emit("refresh");
         })
         .catch((err) => {
