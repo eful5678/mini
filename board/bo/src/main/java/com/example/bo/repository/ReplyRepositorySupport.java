@@ -27,4 +27,9 @@ public interface ReplyRepositorySupport {
 
     List<Reply> findDeletedReplyByReplyId(Long replyId);
 
+    /**
+     * 댓글 조회 by 댓글ID
+     */
+    Reply findReplyByReplyId(Long replyId);
+
 }

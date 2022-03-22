@@ -15,6 +15,7 @@ export default {
     },
   }),
   methods: {
+    // 글작성 request
     createBoard: function () {
       if (this.$store.state.username === "") {
         return alert("로그인 필요");
@@ -24,7 +25,7 @@ export default {
       }
       this.board.class.username = this.$store.state.username;
       axios
-        .post("http://localhost:8090/board/create", this.board.class.create())
+        .post("http://localhost:8091/board/create", this.board.class.create())
         .then((result) => {
           console.log(result);
           this.board.class.content = "";

@@ -25,5 +25,9 @@ public interface ReplyService {
      */
     ReplyDto.deleteReply deleteReply(ReplyDto.deleteReplyParam deleteReplyParam);
     
+    /**
+     * 댓글 수정
+     */
+    ReplyDto.updateReply updateReply(ReplyDto.updateReplyParam param);
     
 }

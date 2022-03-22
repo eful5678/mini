@@ -47,10 +47,11 @@ export default {
     console.log("updated, BoardMain");
   },
   methods: {
+    // 글 목록 조회 용도 & 글작성/수정/삭제 후 List 재 조회 용도
     refresh: function () {
       console.log(";dd");
       axios
-        .get("http://localhost:8090/board/list")
+        .get("http://localhost:8091/board/list")
         .then((result) => {
           console.log(result);
           this.boards = result.data;
@@ -61,11 +62,13 @@ export default {
         })
         .finally(() => {});
     },
+    // 수정 팝업 open
     updateDialogOpen: function (boardId) {
       console.log(boardId);
       this.boardId = boardId;
       this.flag.boardUpdateFlag = true;
     },
+    // 수정 request
     updateBoard: function (boardId) {
       this.board.class.id = boardId;
       console.log(this.board.class.update());

@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("board")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:8080")
+@CrossOrigin("http://localhost:8081")
 public class BoardRestController {
 
     final BoardService boardService;

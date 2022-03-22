@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(value = "reply")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:8080")
+@CrossOrigin("http://localhost:8081")
 public class ReplyRestController {
 
     private final ReplyService replyService;
@@ -41,6 +42,12 @@ public class ReplyRestController {
     @GetMapping("/list")
     public List<ReplyDto.list> list(@ModelAttribute ReplyDto.listParam listParam){
         return replyService.list(listParam);
+    }
+
+    @PutMapping("/updateReply")
+    public ReplyDto.updateReply updateReply(@RequestBody ReplyDto.updateReplyParam param){
+
+        return replyService.updateReply(param);
     }
 
     /**

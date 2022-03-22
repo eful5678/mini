@@ -139,5 +139,26 @@ public class ReplyDto {
             
         }
     }
+
+    @Getter
+    @Setter
+    public static class updateReply{
+        private Long replyId;
+        private String content;
+
+        public updateReply(Long replyId
+                        , String content
+        ){
+            this.replyId = replyId;
+            this.content = content;
+        }
+    }
+
+    @Getter
+    @Setter
+    public static class updateReplyParam{
+        private Long replyId;
+        private String content;
+    }
     
 }

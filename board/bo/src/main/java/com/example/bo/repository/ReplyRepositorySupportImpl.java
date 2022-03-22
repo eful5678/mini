@@ -133,6 +133,19 @@ public class ReplyRepositorySupportImpl extends QuerydslRepositorySupport implem
     }
 
 
+    @Override
+    public Reply findReplyByReplyId(Long replyId) {
+        QReply reply = QReply.reply;
+
+        final BooleanExpression isReplyId = reply.id.eq(replyId);
+
+        return jpaQueryFactory.select(reply)
+                            .from(reply)
+                            .where(isReplyId)
+                            .fetchOne();
+    }
+
+
     
     
 }

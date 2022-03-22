@@ -15,4 +15,9 @@ public interface ReplyRepositoryManager {
      * 댓글 삭제기능
      */
     ReplyDto.deleteReply deleteReply(Reply deletedId);
+
+    /**
+     * 댓글 수정기능
+     */
+    ReplyDto.updateReply updateReply(Reply reply, String content);
 }

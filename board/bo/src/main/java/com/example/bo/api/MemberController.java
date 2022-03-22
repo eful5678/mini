@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("member")
-@CrossOrigin("http://localhost:8080")
+@CrossOrigin("http://localhost:8081")
 @RequiredArgsConstructor
 public class MemberController {
 

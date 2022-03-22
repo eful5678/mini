@@ -16,7 +16,7 @@
       </div>
       <div v-else>
         <a style="cursor: pointer" @click="signUpBind">Sign In</a>&nbsp;
-        <a style="cursor: pointer">Sign Up</a>
+        <a style="cursor: pointer" @click="singUpBind">Sign Up</a>
       </div>
     </header>
   </div>
@@ -41,6 +41,9 @@ export default {
     signUpBind: function () {
       console.log("singUp");
       this.$router.push("/login");
+    },
+    singUpBind: function(){
+      this.$router.push('/singup')
     },
     logout: function () {
       this.$store.commit("clearUsername");

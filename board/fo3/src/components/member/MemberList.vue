@@ -41,6 +41,8 @@ export default {
         .get("http://localhost:8090/member/list")
         .then((result) => {
           console.log(result);
+          // this.common.responseParse(this.member, result, this.member.class);
+          console.log(this.member);
           this.members = result.data;
         })
         .catch((err) => {

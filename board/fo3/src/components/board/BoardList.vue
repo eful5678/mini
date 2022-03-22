@@ -73,6 +73,7 @@ export default {
     openReplyId: 0,
   }),
   methods: {
+    // 조회용도
     search: function () {
       this.$emit("refresh");
     },
@@ -81,7 +82,7 @@ export default {
       // this.flag.boardUpdateFlag = true;
       this.$emit("updateDialogOpen", boardId);
     },
-    
+    // 글삭제 request
     deleteBoard: function (boardId) {
       console.log(boardId);
       let deleteCheck = confirm("게시글을 삭제하시겠습니까?");
@@ -89,7 +90,7 @@ export default {
         this.board.class.id = boardId;
         axios
           .post(
-            "http://localhost:8090/board/deleteBoard",
+            "http://localhost:8091/board/deleteBoard",
             this.board.class.delete()
           )
           .then((result) => {
@@ -102,6 +103,7 @@ export default {
           .finally(() => {});
       }
     },
+    // 글 좋아요 기능
     likeBoard: function (boardId) {
       console.log(boardId);
       this.board.class.id = boardId;
@@ -116,6 +118,7 @@ export default {
         })
         .finally(() => {});
     },
+    // 댓글 목록 열기
     openReply: function (boardId) {
       console.log(boardId);
       this.openReplyId === 0

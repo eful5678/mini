@@ -9,6 +9,7 @@ import com.example.bo.model.ReplyDto.create;
 import com.example.bo.model.ReplyDto.createParam;
 import com.example.bo.model.ReplyDto.deleteReplyParam;
 import com.example.bo.model.ReplyDto.listParam;
+import com.example.bo.model.ReplyDto.updateReplyParam;
 import com.example.bo.repository.BoardRepositorySupport;
 import com.example.bo.repository.ReplyRepositoryManager;
 import com.example.bo.repository.ReplyRepositorySupport;
@@ -94,6 +95,14 @@ public class ReplyServiceImpl implements ReplyService {
         }
 
         return null;
+    }
+
+    @Override
+    public ReplyDto.updateReply updateReply(updateReplyParam param) {
+        Long replyId = param.getReplyId();
+        String content = param.getContent();
+        Reply reply = replyRepositorySupport.findReplyByReplyId(replyId);
+        return replyRepositoryManager.updateReply(reply, content);
     }
     
 }

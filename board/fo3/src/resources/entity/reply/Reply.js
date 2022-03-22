@@ -20,7 +20,12 @@ export default class Reply {
             
         }
     }
-
+    update(){
+        return{
+            replyId: this.replyId,
+            content: this.content,
+        }
+    }
     delete(){
         return {
             replyId: this.replyId,

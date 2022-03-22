@@ -55,6 +55,7 @@ public class Board extends BaseEntity implements BaseFunction<Board>{
 
     public Board(Long createUserId
                  , LocalDateTime createDateTime
+                 , LocalDateTime updateDateTime
                  , char useYn
                  , char delYn
                  , Long id
@@ -63,7 +64,7 @@ public class Board extends BaseEntity implements BaseFunction<Board>{
                  , String content
                  , Long like
     ){
-        super(createUserId, createDateTime, useYn, delYn);
+        super(createUserId, createDateTime, updateDateTime, useYn, delYn);
         this.id = id;
         this.writer = writer;
         this.title = title;

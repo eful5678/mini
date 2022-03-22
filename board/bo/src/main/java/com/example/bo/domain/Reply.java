@@ -59,13 +59,14 @@ public class Reply extends BaseEntity implements BaseFunction<Reply> {
 
     public Reply(Long createUserId
                 , LocalDateTime createDateTime
+                , LocalDateTime updateDateTime
                 , char useYn
                 , char delYn
                 , Board board
                 , Long replyParentId
                 , String content
                 ){
-        super(createUserId, createDateTime, useYn, delYn);
+        super(createUserId, createDateTime, updateDateTime, useYn, delYn);
         this.board = board;
         this.content = content;
     }

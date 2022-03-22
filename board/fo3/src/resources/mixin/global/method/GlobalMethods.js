@@ -1,3 +1,5 @@
+import { Response } from '@/resources/entity';
+
 export default class GlobalMethods {
     constructor() {
 
@@ -8,5 +10,9 @@ export default class GlobalMethods {
         inputDate = inputDate.getFullYear().toString() + '-' + (inputDate.getMonth() + 1).toString() + '-' + inputDate.getDate().toString()
 
         return inputDate;
+    }
+
+    responseParse(dataArea, _data, _class) {
+        Object.assign(dataArea, new Response(_data).parse(_class));
     }
 }

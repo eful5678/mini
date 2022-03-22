@@ -60,6 +60,7 @@ export default {
     updateBoard: function (boardId) {
       // this.$emit("updateBoard", boardId);
     },
+    // 글 수정 용도
     updateBoard: function (boardId) {
       this.board.class.id = boardId;
       console.log(this.board.class.update());

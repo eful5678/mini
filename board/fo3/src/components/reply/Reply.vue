@@ -23,7 +23,10 @@
     </div>
     <div class="reply list" v-for="(reply, index) in replys" :key="index">
       <div v-if="reply.depth === 0">
-        <div class="reply list" style="display: flex; align-items: center; border-top: 1px solid">
+        <div
+          class="reply list"
+          style="display: flex; align-items: center; border-top: 1px solid"
+        >
           <div class="reply list writer">
             <div style="font-weight: 800">{{ reply.replyWriter }}<br /></div>
             <div style="font-size: 0.7rem">
@@ -34,7 +37,8 @@
             {{ reply.content }}
           </div>
           <div v-else-if="replyUpdateFlag === true">
-            <input type="text" v-model="reply.class.content">
+            <input type="text" v-model="reply.content" />
+            <button @click="update(reply.replyId, reply.content)">수정</button>
           </div>
           <div>
             <button @click="openInput(reply.replyId)">
@@ -44,13 +48,13 @@
                 alt=""
               /></button
             >&nbsp;&nbsp;
-            <button @click="openUpdate(reply.replyId)">
+            <button @click="updateReply(reply.replyId)">
               <img
                 src="@/assets/icon/button/write.png"
                 style="width: 20px; height: 20px"
                 alt=""
-              />
-            </button>&nbsp;&nbsp;
+              /></button
+            >&nbsp;&nbsp;
             <button @click="deleteReply(reply.replyId)">
               <img
                 src="@/assets/icon/button/delete.png"
@@ -103,13 +107,15 @@ export default {
     reply: {
       class: new Reply(),
     },
+    content: "",
     replys: [],
     subContent: "",
     replyWriter: "",
     // boardParamId: this.boardId,
     flagId: 0,
+    updateId: 0,
     replyUpdateFlag: false,
-    username: ''
+    username: "",
   }),
   beforeCreate() {
     console.log(this, "beforeCreate");
@@ -155,6 +161,30 @@ export default {
         .post("http://localhost:8090/reply/create", this.reply.class.create())
         .then((result) => {
           console.log(result);
+          this.search();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {});
+    },
+    updateReply: function (id) {
+      this.replyUpdateFlag = true;
+      console.log(id);
+    },
+    update: function (id, content) {
+      console.log(id);
+      console.log(content);
+      this.reply.class.replyId = id;
+      this.reply.class.content = content;
+      axios
+        .put(
+          "http://localhost:8090/reply/updateReply",
+          this.reply.class.update()
+        )
+        .then((result) => {
+          console.log(result);
+          this.replyUpdateFlag = 0;
           this.search();
         })
         .catch((err) => {

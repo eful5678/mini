@@ -36,7 +36,7 @@ export default {
       }
       // this.member.class.username = this.$store.state.username;
       axios
-        .post("http://localhost:8090/member/login", this.member.class.login())
+        .post("http://localhost:8091/member/login", this.member.class.login())
         .then((result) => {
           console.log(result);
           this.$store.commit("setUsername", this.member.class.username);
