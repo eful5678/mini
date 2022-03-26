@@ -23,6 +23,11 @@ const routes = [
     path: '/memberList',
     name: 'MemberList',
     component: () => import('@/components/member/MemberList.vue')
+  },
+  {
+    path: '/todoList',
+    name: 'TodoList',
+    component: () => import('@/components/todo/TodoList.vue')
   }
 ];
 
